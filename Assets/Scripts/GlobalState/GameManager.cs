@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
 
         // Make this game object persistent even between scene changes.
         DontDestroyOnLoad(gameObject);
+        
+        // Hook into scene loaded events.
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
         // Init global game state values and/or set defaults.
         Score = 0;
@@ -51,8 +54,11 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
+    }
 
-        if (sceneName == GameSceneName)
-            this._score = 0; // Reset score upon game start
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == GameSceneName)
+            Score = 0; // Reset score upon game start
     }
 }
