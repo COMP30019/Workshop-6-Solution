@@ -23,7 +23,7 @@ public class UIGameStatusText : MonoBehaviour
     
     public void Win()
     {
-        SetText("You won!","That was...anti-climactic?");
+        SetText("You won!","That was... anticlimactic?");
     }
     
     public void Lose()

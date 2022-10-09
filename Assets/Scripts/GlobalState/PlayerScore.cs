@@ -1,6 +1,7 @@
 ﻿// COMP30019 - Graphics and Interaction
 // (c) University of Melbourne, 2022
 
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,5 +31,10 @@ public class PlayerScore : GameManagerClient
     private void UpdateScore(int score)
     {
         this.onScoreChanged.Invoke(score);
+    }
+
+    private void Start()
+    {
+        GameManager.Score = GameManager.Score; // Invoke event
     }
 }

@@ -1,6 +1,7 @@
 ﻿// COMP30019 - Graphics and Interaction
 // (c) University of Melbourne, 2022
 
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private ProjectileController projectilePrefab;
+
+    private bool _canFire;
     private Vector3 _aimDirection;
 
     private Plane _gamePlane;
@@ -25,6 +28,8 @@ public class PlayerController : MonoBehaviour
         this._moveDirection = Vector3.zero;
         this._aimDirection = Vector3.forward;
         this._gamePlane = new Plane(Vector3.up, Vector3.zero);
+        
+        this._canFire = false;
     }
 
     private void Update()
@@ -41,7 +46,7 @@ public class PlayerController : MonoBehaviour
         // Assuming mouse input to fire, but similar to above, it would probably
         // be worth thinking about alternative input schemes (e.g. for laptop
         // trackpads).
-        if (Input.GetMouseButtonDown(0)) Fire();
+        if (this._canFire && Input.GetMouseButtonDown(0)) Fire();
     }
 
     private void FixedUpdate()
@@ -79,5 +84,15 @@ public class PlayerController : MonoBehaviour
         // Apply recoil impulse.
         this.body.AddForce(
             -this._aimDirection * this.projectileSpeed, ForceMode.Impulse);
+    }
+
+    public void EnableFire()
+    {
+        this._canFire = true;
+    }
+
+    public void DisableFire()
+    {
+        this._canFire = false;
     }
 }
